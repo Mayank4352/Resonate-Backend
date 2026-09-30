@@ -10,6 +10,8 @@ export default async ({ req, res, log, error }) => {
         "PARTICIPANTS_TABLE_ID",
         "POLLS_TABLE_ID",
         "POLL_VOTES_TABLE_ID",
+        "MESSAGES_TABLE_ID",
+        "REPLY_TO_TABLE_ID",
         "LIVEKIT_HOST",
         "LIVEKIT_API_KEY",
         "LIVEKIT_API_SECRET",
@@ -66,62 +68,42 @@ export default async ({ req, res, log, error }) => {
             queries: [Query.equal("$id", [appwriteRoomDocId])]
         });
 
-        // Removing participants from collection
-        const participantColRef = await tables.listRows({
-            databaseId: process.env.MASTER_DATABASE_ID,
-            tableId: process.env.PARTICIPANTS_TABLE_ID,
-            queries: [Query.equal("roomId", [appwriteRoomDocId])]
-        });
-        log(participantColRef);
-        
-        if (participantColRef.rows.length > 0) {
-            const participantIds = participantColRef.rows.map(p => p.$id);
-            await tables.deleteRows({
-                databaseId: process.env.MASTER_DATABASE_ID,
-                tableId: process.env.PARTICIPANTS_TABLE_ID,
-                queries: [Query.equal("$id", participantIds)]
-            });
-        }
+        const purge = async (tableId, onEach) => {
+            let deleted = 0;
+            for (;;) {
+                const page = await tables.listRows({
+                    databaseId: process.env.MASTER_DATABASE_ID,
+                    tableId,
+                    queries: [Query.equal("roomId", [appwriteRoomDocId]), Query.limit(100)]
+                });
+                if (page.rows.length === 0) return deleted;
 
-        // Removing polls from collection
-        let pollColRef;
-        do {
-            pollColRef = await tables.listRows({
-                databaseId: process.env.MASTER_DATABASE_ID,
-                tableId: process.env.POLLS_TABLE_ID,
-                queries: [Query.equal("roomId", [appwriteRoomDocId]), Query.limit(100)]
-            });
-            log(pollColRef);
-
-            if (pollColRef.rows.length > 0) {
-                const pollIds = pollColRef.rows.map(p => p.$id);
+                const ids = page.rows.map(r => r.$id);
+                if (onEach) await onEach(ids);
                 await tables.deleteRows({
                     databaseId: process.env.MASTER_DATABASE_ID,
-                    tableId: process.env.POLLS_TABLE_ID,
-                    queries: [Query.equal("$id", pollIds)]
+                    tableId,
+                    queries: [Query.equal("$id", ids)]
                 });
+                deleted += ids.length;
             }
-        } while (pollColRef.rows.length > 0);
+        };
 
-        // Removing poll votes from collection
-        let pollVoteColRef;
-        do {
-            pollVoteColRef = await tables.listRows({
-                databaseId: process.env.MASTER_DATABASE_ID,
-                tableId: process.env.POLL_VOTES_TABLE_ID,
-                queries: [Query.equal("roomId", [appwriteRoomDocId]), Query.limit(100)]
-            });
-            log(pollVoteColRef);
+        log(`participants deleted: ${await purge(process.env.PARTICIPANTS_TABLE_ID)}`);
+        log(`polls deleted: ${await purge(process.env.POLLS_TABLE_ID)}`);
+        log(`poll votes deleted: ${await purge(process.env.POLL_VOTES_TABLE_ID)}`);
 
-            if (pollVoteColRef.rows.length > 0) {
-                const pollVoteIds = pollVoteColRef.rows.map(p => p.$id);
+        const messagesDeleted = await purge(
+            process.env.MESSAGES_TABLE_ID,
+            async (messageIds) => {
                 await tables.deleteRows({
                     databaseId: process.env.MASTER_DATABASE_ID,
-                    tableId: process.env.POLL_VOTES_TABLE_ID,
-                    queries: [Query.equal("$id", pollVoteIds)]
+                    tableId: process.env.REPLY_TO_TABLE_ID,
+                    queries: [Query.equal("$id", messageIds)]
                 });
             }
-        } while (pollVoteColRef.rows.length > 0);
+        );
+        log(`messages deleted: ${messagesDeleted}`);
 
         // Delete livekit room
         await roomServiceClient.deleteRoom(appwriteRoomDocId);

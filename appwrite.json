@@ -827,7 +827,19 @@
                     "default": null
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "email_index",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "email"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "64a52f0a6c41ded09def",
@@ -1087,9 +1099,30 @@
                     "min": 0,
                     "max": 5,
                     "default": null
+                },
+                {
+                    "key": "followedUid",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 100,
+                    "default": null,
+                    "encrypt": false
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "followedUid_index",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "followedUid"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "64a5217e695bf2c4ec9c",
@@ -1157,6 +1190,42 @@
                     "size": 1000,
                     "default": null,
                     "encrypt": false
+                },
+                {
+                    "key": "participants",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "64a63e508145d1084abf",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "room",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "messages",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "670d812c0002c33c09a8",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "room",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "polls",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "room_polls",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "room",
+                    "onDelete": "cascade",
+                    "side": "parent"
                 }
             ],
             "indexes": []
@@ -1226,6 +1295,18 @@
                     "required": false,
                     "array": false,
                     "default": null
+                },
+                {
+                    "key": "room",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "64a5217e695bf2c4ec9c",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "participants",
+                    "onDelete": "cascade",
+                    "side": "child"
                 }
             ],
             "indexes": [
@@ -1321,6 +1402,30 @@
                     "required": false,
                     "array": false,
                     "default": false
+                },
+                {
+                    "key": "room",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "64a5217e695bf2c4ec9c",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "polls",
+                    "onDelete": "cascade",
+                    "side": "child"
+                },
+                {
+                    "key": "votes",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "room_poll_votes",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "poll",
+                    "onDelete": "cascade",
+                    "side": "parent"
                 }
             ],
             "indexes": [
@@ -1385,6 +1490,18 @@
                     "min": 0,
                     "max": 100,
                     "default": null
+                },
+                {
+                    "key": "poll",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "room_polls",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "votes",
+                    "onDelete": "cascade",
+                    "side": "child"
                 }
             ],
             "indexes": [
@@ -1553,6 +1670,21 @@
                         "languageIso"
                     ],
                     "orders": [
+                        "ASC",
+                        "ASC"
+                    ]
+                },
+                {
+                    "key": "matchIndex",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "languageIso",
+                        "isRandom",
+                        "isAnonymous"
+                    ],
+                    "orders": [
+                        "ASC",
                         "ASC",
                         "ASC"
                     ]
@@ -1771,7 +1903,7 @@
                     "type": "string",
                     "required": true,
                     "array": false,
-                    "size": 1000,
+                    "size": 100,
                     "default": null,
                     "encrypt": false
                 },
@@ -1785,7 +1917,19 @@
                     "encrypt": false
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "creatorUid_index",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "creatorUid"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "6522fd267db6fdad3392",
@@ -1805,7 +1949,7 @@
                     "type": "string",
                     "required": false,
                     "array": false,
-                    "size": 10000,
+                    "size": 100,
                     "default": null,
                     "encrypt": false
                 },
@@ -1823,7 +1967,7 @@
                     "type": "string",
                     "required": false,
                     "array": false,
-                    "size": 1000,
+                    "size": 100,
                     "default": null,
                     "encrypt": false
                 },
@@ -1837,7 +1981,32 @@
                     "encrypt": false
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "upcomingRoom_user_index",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "upcomingRoomId",
+                        "userID"
+                    ],
+                    "orders": [
+                        "ASC",
+                        "ASC"
+                    ]
+                },
+                {
+                    "key": "userID_index",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "userID"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "670259e20000ddda49a0",
@@ -1869,6 +2038,18 @@
                     "size": 50,
                     "default": null,
                     "encrypt": false
+                },
+                {
+                    "key": "story",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "670259e900321c12a5a2",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "likedBy",
+                    "onDelete": "cascade",
+                    "side": "child"
                 }
             ],
             "indexes": [
@@ -1891,6 +2072,19 @@
                         "storyId"
                     ],
                     "orders": [
+                        "ASC"
+                    ]
+                },
+                {
+                    "key": "user_story_index",
+                    "type": "unique",
+                    "status": "available",
+                    "attributes": [
+                        "uId",
+                        "storyId"
+                    ],
+                    "orders": [
+                        "ASC",
                         "ASC"
                     ]
                 }
@@ -1978,6 +2172,18 @@
                     "min": 0,
                     "max": 3600000,
                     "default": null
+                },
+                {
+                    "key": "story",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "670259e900321c12a5a2",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "chapters",
+                    "onDelete": "cascade",
+                    "side": "child"
                 }
             ],
             "indexes": [
@@ -2110,6 +2316,42 @@
                     "size": 40,
                     "default": null,
                     "encrypt": false
+                },
+                {
+                    "key": "chapters",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "670277ad002530531daf",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "story",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "likedBy",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "670259e20000ddda49a0",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "story",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "liveChapters",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "68e5227e001b2f868c05",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "story",
+                    "onDelete": "cascade",
+                    "side": "parent"
                 }
             ],
             "indexes": [
@@ -2302,9 +2544,47 @@
                     "required": false,
                     "array": false,
                     "default": false
+                },
+                {
+                    "key": "room",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "64a5217e695bf2c4ec9c",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "messages",
+                    "onDelete": "cascade",
+                    "side": "child"
+                },
+                {
+                    "key": "replyTo",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "672759820027801f121f",
+                    "relationType": "oneToOne",
+                    "twoWay": true,
+                    "twoWayKey": "message",
+                    "onDelete": "cascade",
+                    "side": "parent"
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "room_index",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "roomId",
+                        "index"
+                    ],
+                    "orders": [
+                        "ASC",
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "672759820027801f121f",
@@ -2362,6 +2642,18 @@
                     "size": 50,
                     "default": null,
                     "encrypt": false
+                },
+                {
+                    "key": "message",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "670d812c0002c33c09a8",
+                    "relationType": "oneToOne",
+                    "twoWay": true,
+                    "twoWayKey": "replyTo",
+                    "onDelete": "cascade",
+                    "side": "child"
                 }
             ],
             "indexes": []
@@ -2822,9 +3114,33 @@
                     "size": 2000,
                     "default": null,
                     "encrypt": false
+                },
+                {
+                    "key": "story",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedCollection": "670259e900321c12a5a2",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "liveChapters",
+                    "onDelete": "cascade",
+                    "side": "child"
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "storyId_index",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "storyId"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "user_stats",
@@ -3148,7 +3464,7 @@
                     "type": "string",
                     "required": false,
                     "array": false,
-                    "size": 10000,
+                    "size": 100,
                     "default": null,
                     "encrypt": false
                 },
@@ -3166,7 +3482,7 @@
                     "type": "string",
                     "required": false,
                     "array": false,
-                    "size": 1000,
+                    "size": 100,
                     "default": null,
                     "encrypt": false
                 },
@@ -3180,7 +3496,32 @@
                     "encrypt": false
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "upcomingRoom_user_index",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "upcomingRoomId",
+                        "userID"
+                    ],
+                    "orders": [
+                        "ASC",
+                        "ASC"
+                    ]
+                },
+                {
+                    "key": "userID_index",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "userID"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "6522fd163103bd453183",
@@ -3242,7 +3583,7 @@
                     "type": "string",
                     "required": true,
                     "array": false,
-                    "size": 1000,
+                    "size": 100,
                     "default": null,
                     "encrypt": false
                 },
@@ -3256,7 +3597,19 @@
                     "encrypt": false
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "creatorUid_index",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "creatorUid"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "64a7bfe3a3a7ee5bf7f8",
@@ -3339,7 +3692,19 @@
                     "default": null
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "email_index",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "email"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "64a52f0a6c41ded09def",
@@ -3599,9 +3964,30 @@
                     "min": 0,
                     "max": 5,
                     "default": null
+                },
+                {
+                    "key": "followedUid",
+                    "type": "string",
+                    "required": false,
+                    "array": false,
+                    "size": 100,
+                    "default": null,
+                    "encrypt": false
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "followedUid_index",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "followedUid"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "68dfcba90010d07ee333",
@@ -4009,6 +4395,21 @@
                         "ASC",
                         "ASC"
                     ]
+                },
+                {
+                    "key": "matchIndex",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "languageIso",
+                        "isRandom",
+                        "isAnonymous"
+                    ],
+                    "orders": [
+                        "ASC",
+                        "ASC",
+                        "ASC"
+                    ]
                 }
             ]
         },
@@ -4078,6 +4479,42 @@
                     "size": 1000,
                     "default": null,
                     "encrypt": false
+                },
+                {
+                    "key": "participants",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "64a63e508145d1084abf",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "room",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "messages",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "670d812c0002c33c09a8",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "room",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "polls",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "room_polls",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "room",
+                    "onDelete": "cascade",
+                    "side": "parent"
                 }
             ],
             "indexes": []
@@ -4203,9 +4640,47 @@
                     "required": false,
                     "array": false,
                     "default": false
+                },
+                {
+                    "key": "room",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "64a5217e695bf2c4ec9c",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "messages",
+                    "onDelete": "cascade",
+                    "side": "child"
+                },
+                {
+                    "key": "replyTo",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "672759820027801f121f",
+                    "relationType": "oneToOne",
+                    "twoWay": true,
+                    "twoWayKey": "message",
+                    "onDelete": "cascade",
+                    "side": "parent"
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "room_index",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "roomId",
+                        "index"
+                    ],
+                    "orders": [
+                        "ASC",
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "64d980cd65ff2e08ab97",
@@ -4356,6 +4831,18 @@
                     "size": 50,
                     "default": null,
                     "encrypt": false
+                },
+                {
+                    "key": "message",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "670d812c0002c33c09a8",
+                    "relationType": "oneToOne",
+                    "twoWay": true,
+                    "twoWayKey": "replyTo",
+                    "onDelete": "cascade",
+                    "side": "child"
                 }
             ],
             "indexes": []
@@ -4425,6 +4912,18 @@
                     "required": false,
                     "array": false,
                     "default": null
+                },
+                {
+                    "key": "room",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "64a5217e695bf2c4ec9c",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "participants",
+                    "onDelete": "cascade",
+                    "side": "child"
                 }
             ],
             "indexes": [
@@ -4520,6 +5019,30 @@
                     "required": false,
                     "array": false,
                     "default": false
+                },
+                {
+                    "key": "room",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "64a5217e695bf2c4ec9c",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "polls",
+                    "onDelete": "cascade",
+                    "side": "child"
+                },
+                {
+                    "key": "votes",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "room_poll_votes",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "poll",
+                    "onDelete": "cascade",
+                    "side": "parent"
                 }
             ],
             "indexes": [
@@ -4584,6 +5107,18 @@
                     "min": 0,
                     "max": 100,
                     "default": null
+                },
+                {
+                    "key": "poll",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "room_polls",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "votes",
+                    "onDelete": "cascade",
+                    "side": "child"
                 }
             ],
             "indexes": [
@@ -4804,6 +5339,18 @@
                     "min": 0,
                     "max": 3600000,
                     "default": null
+                },
+                {
+                    "key": "story",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "670259e900321c12a5a2",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "chapters",
+                    "onDelete": "cascade",
+                    "side": "child"
                 }
             ],
             "indexes": [
@@ -4936,6 +5483,42 @@
                     "size": 40,
                     "default": null,
                     "encrypt": false
+                },
+                {
+                    "key": "chapters",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "670277ad002530531daf",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "story",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "likedBy",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "670259e20000ddda49a0",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "story",
+                    "onDelete": "cascade",
+                    "side": "parent"
+                },
+                {
+                    "key": "liveChapters",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "68e5227e001b2f868c05",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "story",
+                    "onDelete": "cascade",
+                    "side": "parent"
                 }
             ],
             "indexes": [
@@ -5037,6 +5620,18 @@
                     "size": 50,
                     "default": null,
                     "encrypt": false
+                },
+                {
+                    "key": "story",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "670259e900321c12a5a2",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "likedBy",
+                    "onDelete": "cascade",
+                    "side": "child"
                 }
             ],
             "indexes": [
@@ -5059,6 +5654,19 @@
                         "storyId"
                     ],
                     "orders": [
+                        "ASC"
+                    ]
+                },
+                {
+                    "key": "user_story_index",
+                    "type": "unique",
+                    "status": "available",
+                    "columns": [
+                        "uId",
+                        "storyId"
+                    ],
+                    "orders": [
+                        "ASC",
                         "ASC"
                     ]
                 }
@@ -5147,9 +5755,33 @@
                     "size": 2000,
                     "default": null,
                     "encrypt": false
+                },
+                {
+                    "key": "story",
+                    "type": "relationship",
+                    "required": false,
+                    "array": false,
+                    "relatedTable": "670259e900321c12a5a2",
+                    "relationType": "oneToMany",
+                    "twoWay": true,
+                    "twoWayKey": "liveChapters",
+                    "onDelete": "cascade",
+                    "side": "child"
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "storyId_index",
+                    "type": "key",
+                    "status": "available",
+                    "columns": [
+                        "storyId"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "user_stats",
