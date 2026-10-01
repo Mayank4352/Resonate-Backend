@@ -4,7 +4,6 @@ import { throwIfMissing } from "./utils.js";
 
 export default async ({ req, res, log, error }) => {
     throwIfMissing(process.env, [
-        "APPWRITE_API_KEY",
         "MASTER_DATABASE_ID",
         "ROOMS_TABLE_ID",
         "PARTICIPANTS_TABLE_ID",
@@ -23,7 +22,7 @@ export default async ({ req, res, log, error }) => {
                 process.env.APPWRITE_ENDPOINT ?? "https://cloud.appwrite.io/v1"
             )
             .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
-            .setKey(process.env.APPWRITE_API_KEY)
+            .setKey(req.headers["x-appwrite-key"])
     );
 
     const roomServiceClient = new RoomServiceClient(
@@ -62,10 +61,10 @@ export default async ({ req, res, log, error }) => {
         }
 
         //Delete Appwrite room doc
-        await tables.deleteRows({
+        await tables.deleteRow({
             databaseId: process.env.MASTER_DATABASE_ID,
             tableId: process.env.ROOMS_TABLE_ID,
-            queries: [Query.equal("$id", [appwriteRoomDocId])]
+            rowId: appwriteRoomDocId
         });
 
         const purge = async (tableId, onEach) => {
@@ -80,11 +79,11 @@ export default async ({ req, res, log, error }) => {
 
                 const ids = page.rows.map(r => r.$id);
                 if (onEach) await onEach(ids);
-                await tables.deleteRows({
+                await Promise.all(ids.map(rowId => tables.deleteRow({
                     databaseId: process.env.MASTER_DATABASE_ID,
                     tableId,
-                    queries: [Query.equal("$id", ids)]
-                });
+                    rowId
+                })));
                 deleted += ids.length;
             }
         };
@@ -96,11 +95,13 @@ export default async ({ req, res, log, error }) => {
         const messagesDeleted = await purge(
             process.env.MESSAGES_TABLE_ID,
             async (messageIds) => {
-                await tables.deleteRows({
-                    databaseId: process.env.MASTER_DATABASE_ID,
-                    tableId: process.env.REPLY_TO_TABLE_ID,
-                    queries: [Query.equal("$id", messageIds)]
-                });
+                await Promise.all(messageIds.map(rowId =>
+                    tables.deleteRow({
+                        databaseId: process.env.MASTER_DATABASE_ID,
+                        tableId: process.env.REPLY_TO_TABLE_ID,
+                        rowId
+                    }).catch(() => {})
+                ));
             }
         );
         log(`messages deleted: ${messagesDeleted}`);

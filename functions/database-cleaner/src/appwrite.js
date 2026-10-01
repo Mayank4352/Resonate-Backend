@@ -2,14 +2,14 @@ import { Client, TablesDB, Query } from "node-appwrite";
 import { getExpiryDate } from "./utils.js";
 
 class AppwriteService {
-    constructor() {
+    constructor(apiKey) {
         const client = new Client();
         client
             .setEndpoint(
                 process.env.APPWRITE_ENDPOINT ?? "https://cloud.appwrite.io/v1"
             )
             .setProject(process.env.APPWRITE_FUNCTION_PROJECT_ID)
-            .setKey(process.env.APPWRITE_API_KEY);
+            .setKey(apiKey);
 
         this.tables = new TablesDB(client);
     }
@@ -36,11 +36,11 @@ class AppwriteService {
         for (let i = 0; i < ids.length; i += 100) {
             const chunk = ids.slice(i, i + 100);
             try {
-                await this.tables.deleteRows({
+                await Promise.all(chunk.map(rowId => this.tables.deleteRow({
                     databaseId: process.env.MASTER_DATABASE_ID,
                     tableId,
-                    queries: [Query.equal("$id", chunk)]
-                });
+                    rowId
+                })));
             } catch (error) {
                 console.error(`Failed to delete ${chunk.length} rows from ${tableId}:`, error);
             }

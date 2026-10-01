@@ -3,7 +3,6 @@ import { throwIfMissing } from "./utils.js";
 
 export default async (context) => {
     throwIfMissing(process.env, [
-        "APPWRITE_API_KEY",
         "ROOMS_TABLE_ID",
         "PARTICIPANTS_TABLE_ID",
         "POLLS_TABLE_ID",
@@ -16,7 +15,7 @@ export default async (context) => {
         "OTP_TABLE_ID",
     ]);
 
-    const appwrite = new AppwriteService();
+    const appwrite = new AppwriteService(context.req.headers["x-appwrite-key"]);
 
     try {
         await appwrite.cleanParticipantsCollection();

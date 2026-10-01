@@ -5,7 +5,7 @@
         {
             "$id": "65368a58ef47cf6861200",
             "name": "Upcoming Rooms Time Checker",
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "path": "functions/upcomingRoom-isTime-checker",
             "entrypoint": "src/main.js",
             "ignore": [
@@ -35,13 +35,20 @@
             "commands": "npm install",
             "enabled": true,
             "logging": true,
-            "scopes": [],
+            "scopes": [
+                "tables.read",
+                "rows.read",
+                "rows.write",
+                "databases.read",
+                "documents.read",
+                "documents.write"
+            ],
             "specification": "s-1vcpu-512mb"
         },
         {
             "$id": "65368a58ef47cf6861206",
             "name": "Upcoming Rooms Message Notification",
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "path": "functions/upcomingRoom-Message-Notification",
             "entrypoint": "src/main.js",
             "ignore": [
@@ -71,13 +78,16 @@
             "commands": "npm install",
             "enabled": true,
             "logging": true,
-            "scopes": [],
+            "scopes": [
+                "tables.read",
+                "rows.read"
+            ],
             "specification": "s-0.5vcpu-512mb"
         },
         {
             "$id": "6513e9d40b57c6ec156f",
             "name": "Send OTP",
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "path": "functions/send-otp",
             "entrypoint": "src/main.js",
             "ignore": [
@@ -111,13 +121,17 @@
             "commands": "npm install",
             "enabled": true,
             "logging": true,
-            "scopes": [],
+            "scopes": [
+                "tables.read",
+                "rows.read",
+                "rows.write"
+            ],
             "specification": "s-0.5vcpu-512mb"
         },
         {
             "$id": "6513df34a0de595ccfb3",
             "name": "Verify Email",
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "path": "functions/verify-email",
             "entrypoint": "src/main.js",
             "ignore": [
@@ -134,13 +148,16 @@
             "commands": "npm install",
             "enabled": true,
             "logging": true,
-            "scopes": [],
+            "scopes": [
+                "users.read",
+                "users.write"
+            ],
             "specification": "s-0.5vcpu-512mb"
         },
         {
             "$id": "651303df122abc151bf3",
             "name": "Verify OTP",
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "path": "functions/verify-otp",
             "entrypoint": "src/main.js",
             "ignore": [
@@ -170,13 +187,17 @@
             "commands": "npm install",
             "enabled": true,
             "logging": true,
-            "scopes": [],
+            "scopes": [
+                "tables.read",
+                "rows.read",
+                "rows.write"
+            ],
             "specification": "s-0.5vcpu-512mb"
         },
         {
             "$id": "651e2670b1e4a26e3cf1",
             "name": "Create Room",
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "path": "functions/create-room",
             "entrypoint": "src/main.js",
             "ignore": [
@@ -202,13 +223,17 @@
             "commands": "npm install",
             "enabled": true,
             "logging": true,
-            "scopes": [],
+            "scopes": [
+                "tables.read",
+                "rows.read",
+                "rows.write"
+            ],
             "specification": "s-0.5vcpu-512mb"
         },
         {
             "$id": "6534b7949d12c9867bd2",
             "name": "Database Cleaner",
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "path": "functions/database-cleaner",
             "entrypoint": "src/main.js",
             "ignore": [
@@ -262,13 +287,17 @@
             "commands": "npm install",
             "enabled": true,
             "logging": true,
-            "scopes": [],
+            "scopes": [
+                "tables.read",
+                "rows.read",
+                "rows.write"
+            ],
             "specification": "s-0.5vcpu-512mb"
         },
         {
             "$id": "651e348775f28d84e11e",
             "name": "Delete Room",
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "path": "functions/delete-room",
             "entrypoint": "src/main.js",
             "ignore": [
@@ -306,13 +335,17 @@
             "commands": "npm install",
             "enabled": true,
             "logging": true,
-            "scopes": [],
+            "scopes": [
+                "tables.read",
+                "rows.read",
+                "rows.write"
+            ],
             "specification": "s-0.5vcpu-512mb"
         },
         {
             "$id": "651e3d8fa35c690ed957",
             "name": "Join Room",
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "path": "functions/join-room",
             "entrypoint": "src/main.js",
             "ignore": [
@@ -335,7 +368,7 @@
         {
             "$id": "6513ed3a0ac8808c33e4",
             "name": "Livekit Webhook",
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "path": "functions/livekit-webhook",
             "entrypoint": "src/main.js",
             "ignore": [
@@ -365,13 +398,17 @@
             "commands": "npm install",
             "enabled": true,
             "logging": true,
-            "scopes": [],
+            "scopes": [
+                "tables.read",
+                "rows.read",
+                "rows.write"
+            ],
             "specification": "s-0.5vcpu-512mb"
         },
         {
             "$id": "6513f1648a9654b77b7c",
             "name": "Match Maker",
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "path": "functions/match-maker",
             "entrypoint": "src/main.js",
             "ignore": [
@@ -407,7 +444,11 @@
             "commands": "npm install",
             "enabled": true,
             "logging": true,
-            "scopes": [],
+            "scopes": [
+                "tables.read",
+                "rows.read",
+                "rows.write"
+            ],
             "specification": "s-0.5vcpu-512mb"
         },
         {
@@ -428,23 +469,10 @@
             "name": "Send Story Notifications",
             "enabled": true,
             "logging": true,
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "scopes": [
-                "sessions.write",
-                "users.read",
-                "users.write",
-                "teams.read",
-                "teams.write",
-                "databases.read",
-                "databases.write",
-                "collections.read",
-                "collections.write",
-                "attributes.read",
-                "attributes.write",
-                "indexes.read",
-                "indexes.write",
-                "documents.read",
-                "documents.write"
+                "tables.read",
+                "rows.read"
             ],
             "events": [],
             "schedule": "",
@@ -462,14 +490,11 @@
             "name": "Start Friend Call",
             "enabled": true,
             "logging": true,
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "scopes": [
-                "users.read",
-                "databases.read",
-                "collections.read",
-                "documents.read",
                 "tables.read",
-                "rows.read"
+                "rows.read",
+                "users.read"
             ],
             "vars": [
                 {
@@ -497,7 +522,7 @@
             "name": "Sync Stories with Meilisearch",
             "enabled": true,
             "logging": true,
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "scopes": [
                 "databases.read",
                 "tables.read",
@@ -525,7 +550,7 @@
             "name": "Sync Users with Meilisearch",
             "enabled": true,
             "logging": true,
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "scopes": [
                 "databases.read",
                 "tables.read",
@@ -553,13 +578,10 @@
             "name": "Sync All Documents with Meilisearch",
             "enabled": true,
             "logging": true,
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "scopes": [
-                "databases.read",
                 "tables.read",
-                "collections.read",
-                "rows.read",
-                "documents.read"
+                "rows.read"
             ],
             "events": [],
             "schedule": "",
@@ -577,7 +599,7 @@
             "name": "Create Live Chapter Room",
             "enabled": true,
             "logging": true,
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "scopes": [
                 "users.read"
             ],
@@ -597,7 +619,7 @@
             "name": "Join Live Chapter",
             "enabled": true,
             "logging": true,
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "scopes": [
                 "users.read"
             ],
@@ -617,7 +639,7 @@
             "name": "Delete Live Chapter Room",
             "enabled": true,
             "logging": true,
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "scopes": [
                 "users.read"
             ],
@@ -632,7 +654,7 @@
         {
             "$id": "record-activity",
             "name": "Record Activity",
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "path": "functions/record-activity",
             "entrypoint": "src/main.js",
             "ignore": [
@@ -686,13 +708,17 @@
             "commands": "npm install",
             "enabled": true,
             "logging": true,
-            "scopes": [],
+            "scopes": [
+                "tables.read",
+                "rows.read",
+                "rows.write"
+            ],
             "specification": "s-0.5vcpu-512mb"
         },
         {
             "$id": "reconcile-achievements",
             "name": "Reconcile Achievements",
-            "runtime": "node-16.0",
+            "runtime": "node-24",
             "path": "functions/reconcile-achievements",
             "entrypoint": "src/main.js",
             "ignore": [
@@ -720,7 +746,11 @@
             "commands": "npm install",
             "enabled": true,
             "logging": true,
-            "scopes": [],
+            "scopes": [
+                "tables.read",
+                "rows.read",
+                "rows.write"
+            ],
             "specification": "s-0.5vcpu-512mb"
         }
     ],
@@ -836,7 +866,7 @@
                         "email"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -987,17 +1017,7 @@
                 }
             ],
             "indexes": [
-                {
-                    "key": "interests_index",
-                    "type": "key",
-                    "status": "available",
-                    "attributes": [
-                        "interests"
-                    ],
-                    "orders": [
-                        null
-                    ]
-                },
+                
                 {
                     "key": "name_index",
                     "type": "fulltext",
@@ -1006,7 +1026,7 @@
                         "name"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -1017,7 +1037,7 @@
                         "username"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -1119,7 +1139,7 @@
                         "followedUid"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -1318,7 +1338,7 @@
                         "roomId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -1329,7 +1349,7 @@
                         "uid"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -1341,8 +1361,8 @@
                         "roomId"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 }
             ]
@@ -1437,7 +1457,7 @@
                         "roomId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -1513,7 +1533,7 @@
                         "roomId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -1525,8 +1545,8 @@
                         "uid"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 }
             ]
@@ -1621,7 +1641,7 @@
                         "languageIso"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -1632,7 +1652,7 @@
                         "$id"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -1643,7 +1663,7 @@
                         "$createdAt"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -1656,9 +1676,9 @@
                         "$createdAt"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc",
+                        "asc"
                     ]
                 },
                 {
@@ -1670,8 +1690,8 @@
                         "languageIso"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 },
                 {
@@ -1684,9 +1704,9 @@
                         "isAnonymous"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc",
+                        "asc"
                     ]
                 }
             ]
@@ -1768,7 +1788,7 @@
                         "userDocId1"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -1779,7 +1799,7 @@
                         "userDocId2"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -1926,7 +1946,7 @@
                         "creatorUid"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -1991,8 +2011,8 @@
                         "userID"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 },
                 {
@@ -2003,7 +2023,7 @@
                         "userID"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -2061,7 +2081,7 @@
                         "uId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -2072,7 +2092,7 @@
                         "storyId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -2084,8 +2104,8 @@
                         "storyId"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 }
             ]
@@ -2195,7 +2215,7 @@
                         "storyId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -2355,17 +2375,7 @@
                 }
             ],
             "indexes": [
-                {
-                    "key": "tags_index",
-                    "type": "key",
-                    "status": "available",
-                    "attributes": [
-                        "tags"
-                    ],
-                    "orders": [
-                        null
-                    ]
-                },
+                
                 {
                     "key": "title_index",
                     "type": "fulltext",
@@ -2374,7 +2384,7 @@
                         "title"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -2385,7 +2395,7 @@
                         "creatorName"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -2396,7 +2406,7 @@
                         "description"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -2407,7 +2417,7 @@
                         "creatorId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -2418,7 +2428,7 @@
                         "category"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -2580,8 +2590,8 @@
                         "index"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 }
             ]
@@ -3137,7 +3147,7 @@
                         "storyId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -3374,8 +3384,8 @@
                         "role"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 }
             ]
@@ -3506,8 +3516,8 @@
                         "userID"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 },
                 {
@@ -3518,7 +3528,7 @@
                         "userID"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -3606,7 +3616,7 @@
                         "creatorUid"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -3701,7 +3711,7 @@
                         "email"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -3852,17 +3862,7 @@
                 }
             ],
             "indexes": [
-                {
-                    "key": "interests_index",
-                    "type": "key",
-                    "status": "available",
-                    "columns": [
-                        "interests"
-                    ],
-                    "orders": [
-                        null
-                    ]
-                },
+                
                 {
                     "key": "name_index",
                     "type": "fulltext",
@@ -3871,7 +3871,7 @@
                         "name"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -3882,7 +3882,7 @@
                         "username"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -3984,7 +3984,7 @@
                         "followedUid"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -4343,7 +4343,7 @@
                         "languageIso"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -4354,7 +4354,7 @@
                         "$id"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -4365,7 +4365,7 @@
                         "$createdAt"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -4378,9 +4378,9 @@
                         "$createdAt"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc",
+                        "asc"
                     ]
                 },
                 {
@@ -4392,8 +4392,8 @@
                         "languageIso"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 },
                 {
@@ -4406,9 +4406,9 @@
                         "isAnonymous"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc",
+                        "asc"
                     ]
                 }
             ]
@@ -4676,8 +4676,8 @@
                         "index"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 }
             ]
@@ -4759,7 +4759,7 @@
                         "userDocId1"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -4770,7 +4770,7 @@
                         "userDocId2"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -4935,7 +4935,7 @@
                         "roomId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -4946,7 +4946,7 @@
                         "uid"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -4958,8 +4958,8 @@
                         "roomId"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 }
             ]
@@ -5054,7 +5054,7 @@
                         "roomId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -5130,7 +5130,7 @@
                         "roomId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -5142,8 +5142,8 @@
                         "uid"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 }
             ]
@@ -5362,7 +5362,7 @@
                         "storyId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -5522,17 +5522,7 @@
                 }
             ],
             "indexes": [
-                {
-                    "key": "tags_index",
-                    "type": "key",
-                    "status": "available",
-                    "columns": [
-                        "tags"
-                    ],
-                    "orders": [
-                        null
-                    ]
-                },
+                
                 {
                     "key": "title_index",
                     "type": "fulltext",
@@ -5541,7 +5531,7 @@
                         "title"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -5552,7 +5542,7 @@
                         "creatorName"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -5563,7 +5553,7 @@
                         "description"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -5574,7 +5564,7 @@
                         "creatorId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -5585,7 +5575,7 @@
                         "category"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -5643,7 +5633,7 @@
                         "uId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -5654,7 +5644,7 @@
                         "storyId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 },
                 {
@@ -5666,8 +5656,8 @@
                         "storyId"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 }
             ]
@@ -5778,7 +5768,7 @@
                         "storyId"
                     ],
                     "orders": [
-                        "ASC"
+                        "asc"
                     ]
                 }
             ]
@@ -6015,8 +6005,8 @@
                         "role"
                     ],
                     "orders": [
-                        "ASC",
-                        "ASC"
+                        "asc",
+                        "asc"
                     ]
                 }
             ]
