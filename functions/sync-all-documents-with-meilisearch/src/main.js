@@ -33,7 +33,7 @@ export default async ({ req, res, log }) => {
     }
 
     const result = await databases.listRows({
-      databaseId: "stories",
+      databaseId: "main",
       tableId: "670259e900321c12a5a2",
       queries
     });
@@ -64,7 +64,7 @@ export default async ({ req, res, log }) => {
     }
 
     const result = await databases.listRows({
-      databaseId: "64a1319104a149e16f5c",
+      databaseId: "main",
       tableId: "64a52f0a6c41ded09def",
       queries
     });

@@ -47,7 +47,7 @@ Everything else runs unattended. Expect 5–15 minutes, most of it building the 
 
 ```bash
 appwrite functions list     # 21 functions, all "ready"
-appwrite tablesdb list-rows --database-id 64a1319104a149e16f5c --table-id achievement_thresholds
+appwrite tablesdb list-rows --database-id main --table-id achievement_thresholds
 ```
 
 The thresholds table should hold 9 rows. If it is empty, check the failing execution:
