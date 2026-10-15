@@ -789,6 +789,42 @@
                 "rows.write"
             ],
             "specification": "s-0.5vcpu-512mb"
+        },
+        {
+            "$id": "send-social-notification",
+            "name": "Send Social Notifications",
+            "runtime": "node-24",
+            "path": "functions/send-social-notification",
+            "entrypoint": "src/main.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "vars": [
+                {
+                    "key": "UserDataDatabaseID",
+                    "value": "main"
+                },
+                {
+                    "key": "UsersCollectionID",
+                    "value": "64a52f0a6c41ded09def"
+                }
+            ],
+            "execute": [
+                "any"
+            ],
+            "events": [],
+            "schedule": "",
+            "timeout": 15,
+            "commands": "npm install",
+            "enabled": true,
+            "logging": true,
+            "scopes": [
+                "tables.read",
+                "rows.read",
+                "rows.write"
+            ],
+            "specification": "s-0.5vcpu-512mb"
         }
     ],
     "tablesDB": [
@@ -1202,6 +1238,14 @@
                     "size": 40,
                     "default": null,
                     "encrypt": false
+                },
+                {
+                    "key": "fcmTokens",
+                    "type": "string",
+                    "required": false,
+                    "array": true,
+                    "size": 255,
+                    "default": null
                 }
             ],
             "indexes": [

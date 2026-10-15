@@ -93,6 +93,45 @@ appwrite push tables --all --force
 Read the plan it prints before confirming. `adding` is safe; treat **`deleting`** or
 **`recreating`** as a stop sign, because those drop data.
 
+### Function config and secrets
+
+Two kinds of value reach a function, and they live in different places.
+
+**Per-function config — `functions/<name>/.env`.** Database, table and collection IDs. These are
+not secrets (the same IDs ship inside the Flutter app), but they are environment-specific, so they
+are **not committed**. Each function has a committed `.env.example`; copy them before setup:
+
+```bash
+for f in functions/*/.env.example; do cp -n "$f" "${f%.example}"; done
+```
+
+```powershell
+Get-ChildItem functions/*/.env.example | ForEach-Object {
+  $t = $_.FullName -replace '\.example$',''
+  if (-not (Test-Path $t)) { Copy-Item $_.FullName $t }
+}
+```
+
+`appwrite push functions --with-variables` reads these files. **If a function has no `.env`, that
+command pushes zero variables and silently wipes any already set**, and the function then fails at
+runtime with an unhelpful `Missing required parameter: "databaseId"`.
+
+**Shared secrets — project variables.** Credentials belong on the server, never in a file.
+`init.sh` / `init.ps1` prompt for them and store them with `appwrite project create-variable`,
+which makes them visible to every function and immune to the wipe above. The LiveKit and
+Meilisearch keys already work this way.
+
+`functions/send-otp/.env.example` leaves `SENDER_MAIL` and `SENDER_PASSWORD` blank on purpose.
+Supply **your own** Gmail address and a [Google App Password](https://myaccount.google.com/apppasswords).
+OTP email does not work without them, and sharing one mailbox between contributors is not intended.
+
+**Firebase credential.** `send-story-notification`, `start-friend-call`,
+`upcomingRoom-Message-Notification` and `upcomingRoom-isTime-checker` each `require` a
+`src/resonate-service-account.json`. It is gitignored, so a fresh clone has none and those
+functions crash at load with `Cannot find module`. Put your Firebase service-account JSON in
+**each** of those four directories. (`send-social-notification` instead reads a
+`FIREBASE_SERVICE_ACCOUNT` project variable, which avoids the per-directory copying.)
+
 ## Functions :
 
 (a) [Room Creation function](functions/create-room) : Function to create rooms in Appwrite and Livekit.
