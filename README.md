@@ -10,7 +10,7 @@ Go to [this repository](https://github.com/AOSSIE-Org/Resonate) to know more abo
 ## Environment Setup :
 
 `init.sh` (or `init.ps1` on Windows) builds the whole backend for you: it installs Appwrite,
-creates the project, pushes every table, bucket and function defined in `appwrite.json`, and
+creates the project, pushes every table, bucket and function defined in `appwrite.config.json`, and
 starts Meilisearch and LiveKit locally. Two steps need a browser and are called out below.
 
 ### Prerequisites
@@ -40,7 +40,7 @@ those same credentials.
 Everything else runs unattended. Expect 5–15 minutes, most of it building the 21 functions.
 
 > **No API key needed.** Each function authenticates with the per-execution key Appwrite supplies
-> in the `x-appwrite-key` header, scoped to the `scopes` that function declares in `appwrite.json`.
+> in the `x-appwrite-key` header, scoped to the `scopes` that function declares in `appwrite.config.json`.
 > Nothing long-lived has to be created, pasted or kept in sync.
 
 ### Verify it worked
@@ -57,7 +57,7 @@ appwrite functions list-executions --function-id reconcile-achievements
 ```
 
 An authorization error there usually means the function is missing a scope. Scopes live per
-function in `appwrite.json` and decide what its per-execution key may do, so add the missing one
+function in `appwrite.config.json` and decide what its per-execution key may do, so add the missing one
 and redeploy — **a function keeps the environment and scopes it was deployed with**:
 
 ```bash
@@ -83,7 +83,7 @@ get your `HOST`, `API-KEY` and `API-SECRET` first. Appwrite itself can also run 
 
 ### Changing the schema
 
-`appwrite.json` is the source of truth for every database, table, index and function. After
+`appwrite.config.json` is the source of truth for every database, table, index and function. After
 editing it:
 
 ```bash
@@ -92,6 +92,21 @@ appwrite push tables --all --force
 
 Read the plan it prints before confirming. `adding` is safe; treat **`deleting`** or
 **`recreating`** as a stop sign, because those drop data.
+
+### Pushing to a different instance
+
+The committed `projectId` is `resonate`, the id `init.sh` creates, so a local setup needs no
+edit. To push the same config at another instance (a staging or production server, whose project
+id is generated and not `resonate`), override it for the one command instead of editing the file:
+
+```bash
+appwrite login --switch --email <you> --endpoint https://<host>/v1
+APPWRITE_PROJECT_ID=<project-id> appwrite push functions --all --force --with-variables
+```
+
+`APPWRITE_PROJECT_ID` takes precedence over the file, which keeps one config in git rather than a
+per-environment copy. Without it the push targets `resonate` and fails with *"Project with the
+requested ID could not be found"* — a harmless error, not a wrong-instance write.
 
 ### Function config and secrets
 

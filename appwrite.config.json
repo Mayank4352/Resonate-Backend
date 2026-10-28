@@ -313,6 +313,14 @@
                 {
                     "key": "POLL_VOTES_TABLE_ID",
                     "value": "room_poll_votes"
+                },
+                {
+                    "key": "MESSAGES_TABLE_ID",
+                    "value": "670d812c0002c33c09a8"
+                },
+                {
+                    "key": "REPLY_TO_TABLE_ID",
+                    "value": "672759820027801f121f"
                 }
             ],
             "execute": [
@@ -361,6 +369,14 @@
                 {
                     "key": "POLL_VOTES_TABLE_ID",
                     "value": "room_poll_votes"
+                },
+                {
+                    "key": "MESSAGES_TABLE_ID",
+                    "value": "670d812c0002c33c09a8"
+                },
+                {
+                    "key": "REPLY_TO_TABLE_ID",
+                    "value": "672759820027801f121f"
                 }
             ],
             "execute": [
@@ -464,10 +480,6 @@
                 {
                     "key": "REQUESTS_TABLE_ID",
                     "value": "64d980211f1395263ebe"
-                },
-                {
-                    "key": "APPWRITE_FUNCTION_PROJECT_ID",
-                    "value": "resonate"
                 }
             ],
             "execute": [
@@ -516,6 +528,10 @@
             "timeout": 15,
             "entrypoint": "src/main.js",
             "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
             "path": "functions/send-story-notification",
             "specification": "s-0.5vcpu-512mb"
         },
@@ -548,6 +564,10 @@
             "timeout": 15,
             "entrypoint": "src/main.js",
             "commands": "npm install",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
             "path": "functions/start-friend-call",
             "specification": "s-0.5vcpu-512mb"
         },
